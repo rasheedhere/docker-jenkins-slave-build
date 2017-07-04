@@ -5,7 +5,9 @@ A Jenkins slave image that can build docker images and includes additional tools
 **Includes**:
 - Everything from `loyaltyone/jenkins-slave`
 - SBT (0.13.15)
-- Maven
+- Maven (3.3.9)
+- Node (8.1.3, 6.11.0 (default))
+- Node Packages: gulp, ecs-service
 
 ## Building Docker images
 
@@ -23,4 +25,9 @@ To give the jenkins user in the container access to the `docker.sock` you must s
 
 # Tags
 
-None
+**0.1**
+
+- SBT (0.13.15)
+- Maven (3.3.9)
+- Node (8.1.3, 6.11.0 (default))
+- Node Packages: gulp, ecs-service
