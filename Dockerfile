@@ -41,7 +41,7 @@ USER root
 #================
 # Scala
 #================
-# based off https://github.com/ysihaoy/docker-scalals
+# based off https://github.com/ysihaoy/docker-scala
 # Copy everything (need project and build.sbt) to /home/jenkins/build
 COPY . /home/jenkins/build/
 RUN cd /home/jenkins/build && \
