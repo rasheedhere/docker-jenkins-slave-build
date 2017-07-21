@@ -37,3 +37,15 @@ USER jenkins
 RUN ./node-setup && rm node-setup
 
 USER root
+
+#================
+# Scala
+#================
+USER jenkins
+
+# Copy everything (need project and build.sbt) to /home/jenkins/build
+COPY . /home/jenkins/build/
+RUN cd /home/jenkins/build && \
+    rm -rf /home/jenkins/build
+
+USER root
