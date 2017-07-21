@@ -41,12 +41,14 @@ USER root
 #================
 # Scala
 #================
+
+USER jenkins
 # based off https://github.com/ysihaoy/docker-scala
 # Copy everything (need project and build.sbt) to /home/jenkins/build
 COPY . /home/jenkins/build/
 RUN cd /home/jenkins/build && \
-    (sbt +compile) && \
-    (sbt +test:compile)
+    (sbt "+compile") && \
+    (sbt "+test:compile")
 
 USER root
 RUN rm -rf /home/jenkins/build
