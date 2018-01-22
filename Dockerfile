@@ -4,15 +4,16 @@ FROM loyaltyone/jenkins-slave:0.4
 # SBT
 #=========
 
-ENV SBT_VERSION=0.13.15 \
+ENV SBT_VERSION=1.1.0 \
     SBT_HOME=/usr/local/sbt
 ENV PATH=${PATH}:${SBT_HOME}/bin
 
-RUN curl -sL "http://dl.bintray.com/sbt/native-packages/sbt/$SBT_VERSION/sbt-$SBT_VERSION.tgz" | gunzip | tar -x -C /usr/local
+
+RUN curl -sL "https://github.com/sbt/sbt/releases/download/v$SBT_VERSION/sbt-$SBT_VERSION.tgz" | gunzip | tar -x -C /usr/local
 
 USER jenkins
 
-RUN sbt sbt-version \
+RUN sbt sbtVersion \
     && rm -rf project
 
 USER root
@@ -41,14 +42,10 @@ USER root
 #================
 # Scala
 #================
+COPY fetch-cache-scala /usr/local/bin/fetch-cache-scala
+RUN chmod +x /usr/local/bin/fetch-cache-scala
 
-USER jenkins
-# based off https://github.com/ysihaoy/docker-scala
-# Copy everything (need project and build.sbt) to /home/jenkins/build
-COPY . /home/jenkins/build/
-RUN cd /home/jenkins/build && \
-    (sbt "+compile") && \
-    (sbt "+test:compile")
+ENTRYPOINT ["/usr/local/bin/entry-point", "/usr/local/bin/fetch-cache-scala", "/usr/local/bin/jenkins-slave"]
 
 USER root
 RUN rm -rf /home/jenkins/build
