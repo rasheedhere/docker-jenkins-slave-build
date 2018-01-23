@@ -1,4 +1,4 @@
-FROM loyaltyone/jenkins-slave:0.4
+FROM loyaltyone/jenkins-slave:0.5
 
 #=========
 # SBT
